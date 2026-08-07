@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+# Cancel in-progress runs for the same branch to avoid wasting CI minutes
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    name: Bump version, create tag, and publish GitHub Release
+    runs-on: ubuntu-latest
+    # Only run if the triggering CI workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    permissions:
+      # Required to push tags and create GitHub releases
+      contents: write
+      # Required for npm provenance attestation via OIDC (if needed by subsequent workflows)
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for full git history (needed by release-it)
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure Git
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+      - name: Release
+        # release-it will:
+        # 1. Bump version in package.json based on commit history (Conventional Commits)
+        # 2. Update CHANGELOG.md
+        # 3. Create a Git tag
+        # 4. Push the tag and release commit to GitHub
+        # 5. Create a GitHub Release (configured in .release-it.json)
+        # Note: npm publishing is disabled in .release-it.json; handled by publish.yml on tag push
+        run: npm run release -- --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

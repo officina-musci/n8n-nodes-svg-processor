@@ -1,0 +1,73 @@
+{
+	"name": "@officina-musci/n8n-nodes-svg-processor",
+	"version": "0.1.0",
+	"description": "n8n community node to process SVG files and templates and export to PDF/JPG/PNG",
+	"license": "MIT",
+	"homepage": "https://github.com/officina-musci/n8n-nodes-svg-processor",
+	"keywords": [
+		"n8n-community-node-package",
+		"svg",
+		"svg-processing",
+		"image-processing",
+		"pdf"
+	],
+	"author": {
+		"name": "Danilo Musci",
+		"email": "officina@musci.ch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/officina-musci/n8n-nodes-svg-processor.git"
+	},
+	"scripts": {
+		"build": "n8n-node build",
+		"build:watch": "tsc --watch",
+		"dev": "n8n-node dev",
+		"lint": "n8n-node lint",
+		"lint:fix": "n8n-node lint --fix",
+		"release": "release-it",
+		"prepublishOnly": "npm run lint && npm run build"
+	},
+	"files": [
+		"dist"
+	],
+	"publishConfig": {
+		"access": "public",
+		"provenance": true,
+		"registry": "https://registry.npmjs.org/"
+	},
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"strict": false,
+		"credentials": [],
+		"nodes": [
+			"dist/nodes/SvgProcessor/SvgProcessor.node.js"
+		]
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^21.2.1",
+		"@commitlint/config-conventional": "^21.2.0",
+		"@n8n/node-cli": "*",
+		"@release-it/conventional-changelog": "^11.0.0",
+		"@types/pdfkit": "^0.17.6",
+		"@types/pngjs": "^6.0.5",
+		"@types/svg-to-pdfkit": "^0.1.4",
+		"eslint": "9.32.0",
+		"prettier": "3.6.2",
+		"release-it": "^19.0.4",
+		"typescript": "5.9.2"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	},
+	"dependencies": {
+		"@resvg/resvg-js": "^2.6.2",
+		"@xmldom/xmldom": "^0.9.10",
+		"image-size": "^2.0.2",
+		"jpeg-js": "^0.4.4",
+		"pdfkit": "^0.19.1",
+		"pngjs": "^7.0.0",
+		"svg-path-bbox": "^2.1.0",
+		"svg-to-pdfkit": "^0.1.8"
+	}
+}
