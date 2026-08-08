@@ -5,6 +5,7 @@ on:
     tags:
       # Matches semantic version tags: 0.1.0, 1.2.3, 2.0.0-rc.1, etc.
       - '*.*.*'
+  workflow_dispatch:
 
 jobs:
   publish:
