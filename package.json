@@ -54,7 +54,7 @@
 		"@types/svg-to-pdfkit": "^0.1.4",
 		"eslint": "9.32.0",
 		"prettier": "3.6.2",
-		"release-it": "^19.0.4",
+		"release-it": "^21.0.1",
 		"typescript": "5.9.2"
 	},
 	"peerDependencies": {
