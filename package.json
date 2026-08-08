@@ -1,6 +1,6 @@
 {
 	"name": "@officina-musci/n8n-nodes-svg-processor",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "n8n community node to process SVG files and templates and export to PDF/JPG/PNG",
 	"license": "MIT",
 	"homepage": "https://github.com/officina-musci/n8n-nodes-svg-processor",

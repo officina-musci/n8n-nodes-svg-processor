@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.2.0 (2026-08-08)
+
 ## 0.1.0
 
 - Refined Target Elements row labeling in Insert Text and Insert Image to use "Element" for clearer parameter grouping.
