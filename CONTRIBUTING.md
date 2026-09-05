@@ -31,6 +31,16 @@ Notes:
 - `npm run build` compiles distributable files into `dist`.
 - `npm run lint` runs the n8n/ESLint checks used in CI.
 
+## Manual Validation Template
+
+Use [examples/test-template.svg](./examples/test-template.svg) as the canonical test fixture when validating changes.
+
+Suggested validation scope:
+
+- Insert Text on `target-text` and `target-tspan`.
+- Insert Image on `target-rect`, `target-circle`, `target-ellipse`, `target-path`, `target-polygon`, `target-polyline`, and `target-line`.
+- Confirm output SVG renders as expected and no operation-specific errors are raised.
+
 ## Pull Requests
 
 - Keep changes focused and include documentation updates when behavior changes.

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="960" viewBox="0 0 1280 960">
+  <defs>
+    <linearGradient id="panelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f9fafb" />
+      <stop offset="100%" stop-color="#eef2ff" />
+    </linearGradient>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e5e7eb" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <rect x="0" y="0" width="1280" height="960" fill="url(#panelGradient)" />
+  <rect x="0" y="0" width="1280" height="960" fill="url(#grid)" opacity="0.45" />
+
+  <text x="48" y="56" font-family="Verdana, sans-serif" font-size="28" font-weight="700" fill="#111827">
+    SVG Processor Test Template
+  </text>
+  <text x="48" y="88" font-family="Verdana, sans-serif" font-size="15" fill="#374151">
+    IDs below cover all supported targets for text and image insertion.
+  </text>
+
+  <g id="text-targets" font-family="Verdana, sans-serif" fill="#111827">
+    <text x="48" y="140" font-size="18" font-weight="700">Text insertion targets</text>
+
+    <text x="48" y="178" font-size="14" fill="#6b7280">ID: target-text</text>
+    <text id="target-text" x="48" y="208" font-size="26" fill="#0f766e">Original text in &lt;text&gt;</text>
+
+    <text x="48" y="252" font-size="14" fill="#6b7280">ID: target-tspan</text>
+    <text x="48" y="284" font-size="24" fill="#7c3aed">
+      <tspan id="target-tspan">Original text in &lt;tspan&gt;</tspan>
+    </text>
+  </g>
+
+  <g id="image-targets" font-family="Verdana, sans-serif" fill="#111827">
+    <text x="48" y="350" font-size="18" font-weight="700">Image insertion targets (all supported shape tags)</text>
+
+    <text x="48" y="384" font-size="13" fill="#6b7280">ID: target-rect</text>
+    <rect id="target-rect" x="48" y="396" width="220" height="130" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3" />
+
+    <text x="334" y="384" font-size="13" fill="#6b7280">ID: target-circle</text>
+    <circle id="target-circle" cx="444" cy="461" r="65" fill="#fee2e2" stroke="#b91c1c" stroke-width="3" />
+
+    <text x="560" y="384" font-size="13" fill="#6b7280">ID: target-ellipse</text>
+    <ellipse id="target-ellipse" cx="690" cy="461" rx="120" ry="70" fill="#ecfccb" stroke="#3f6212" stroke-width="3" />
+
+    <text x="852" y="384" font-size="13" fill="#6b7280">ID: target-path</text>
+    <path id="target-path" d="M 870 520 L 920 404 L 1010 404 L 1060 520 L 965 560 Z" fill="#fef3c7" stroke="#92400e" stroke-width="3" />
+
+    <text x="48" y="590" font-size="13" fill="#6b7280">ID: target-polygon</text>
+    <polygon id="target-polygon" points="48,730 138,598 228,730 188,826 88,826" fill="#fce7f3" stroke="#9d174d" stroke-width="3" />
+
+    <text x="334" y="590" font-size="13" fill="#6b7280">ID: target-polyline</text>
+    <polyline id="target-polyline" points="334,818 384,620 444,760 514,640 574,818" fill="none" stroke="#065f46" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+
+    <text x="640" y="590" font-size="13" fill="#6b7280">ID: target-line</text>
+    <line id="target-line" x1="640" y1="830" x2="860" y2="620" stroke="#7c2d12" stroke-width="20" stroke-linecap="round" />
+  </g>
+
+  <text x="48" y="918" font-family="Verdana, sans-serif" font-size="13" fill="#4b5563">
+    Tip: Use operation "Insert Image" with each target-* ID above, and "Insert Text" with target-text / target-tspan.
+  </text>
+</svg>

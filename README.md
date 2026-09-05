@@ -126,6 +126,11 @@ For common issues and fixes (missing IDs, invalid element types, binary content 
 
 `CHANGELOG.md` is managed by release automation. Do not edit it manually.
 
+### Contributor Testing Template
+
+For contributor validation steps and target IDs, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+The canonical SVG fixture is [examples/test-template.svg](./examples/test-template.svg).
+
 ## Resources
 
 - n8n community nodes: https://docs.n8n.io/integrations/#community-nodes
