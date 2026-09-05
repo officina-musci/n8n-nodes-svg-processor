@@ -1,132 +1,136 @@
 # n8n-nodes-svg-processor
 
-SVG Processor is an n8n community node that lets you process SVG files and templates and export them to different formats directly inside workflows.
+[![npm version](https://img.shields.io/npm/v/%40officina-musci%2Fn8n-nodes-svg-processor)](https://www.npmjs.com/package/@officina-musci/n8n-nodes-svg-processor)
+[![CI](https://github.com/officina-musci/n8n-nodes-svg-processor/actions/workflows/ci.yml/badge.svg)](https://github.com/officina-musci/n8n-nodes-svg-processor/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-The node accepts SVG templates as binary input and supports:
-
-- Replacing text in SVG text elements.
-- Inserting raster/vector images into SVG shape containers.
-- Exporting SVG to PDF, JPG, or PNG.
+SVG Processor is an n8n community node for editing SVG templates and converting SVG files to PDF, JPG, or PNG directly inside workflows.
 
 ## Installation
 
-Follow the n8n community node installation guide:
+This package is currently documented for **self-hosted n8n**.
+
+Use the Community Nodes install flow in n8n:
 
 https://docs.n8n.io/integrations/community-nodes/installation/
 
-## Releases
+Package name:
 
-This repository uses Conventional Commits to drive versioning and changelog generation.
+```text
+@officina-musci/n8n-nodes-svg-processor
+```
 
-- Use commit messages like `feat: add image resize mode` or `fix: handle missing SVG viewbox`.
-- Breaking changes should include `BREAKING CHANGE:` in the commit body or footer.
-- Merge commits are allowed, but the merged commits still need to follow Conventional Commits.
-- `CHANGELOG.md` is generated automatically by the release workflow. Do not edit it manually.
+If you install manually in a custom environment:
 
-When commits land on `main`, the CI workflow runs tests and linting. If successful, the `release` workflow automatically bumps the version (using Conventional Commits), creates a Git tag, and publishes the package to npm.
+```bash
+npm install @officina-musci/n8n-nodes-svg-processor
+```
 
-If you need to cut a release locally, run `npm run release`. It will create the
-release commit and tag, but it will not publish to npm directly.
+## Requirements and Compatibility
+
+- n8n instance with Community Nodes enabled.
+- Built with n8n Node API v1.
+- No credentials required.
+- For local development/build of this package: Node.js `^22.21.0 || >=24.0.0`.
+- Cloud compatibility status is not declared in this repository; use self-hosted n8n unless you have explicit approval/validation for your environment.
 
 ## Operations
 
 ### Insert Text
 
-Replaces text in one or more target SVG elements by ID.
+Replace text in one or more target SVG elements by ID.
 
-- Target element must be `<text>` or `<tspan>`.
-- Multiple insertions are supported in one execution using the Target Elements list.
-- Long lines on `<text>` targets are wrapped when a text container width can be inferred (for example via shape-inside).
+- Target element must be `text` or `tspan`.
+- Multiple target rows are supported in one execution.
+- Long text on `text` elements is wrapped when container width can be inferred.
 
 ### Insert Image
 
-Inserts one or more images into target SVG shape containers by ID.
+Insert one or more images into target SVG shape containers by ID.
 
-- Supported image formats: PNG, JPG, SVG.
+- Supported source image formats: PNG, JPG, SVG.
 - Supported target container shapes: `rect`, `circle`, `ellipse`, `path`, `polygon`, `polyline`, `line`.
 - Resize modes: `none`, `contain`, `cover`.
-- Optional controls: Preserve Aspect Ratio and Overflow Handling.
+- Overflow handling supports clipping inserted images to target bounds.
 
-### Convert to PDF
+### Convert String to SVG
 
-Converts SVG template binary input to PDF binary output.
+Validate an SVG markup string and output it as SVG binary.
 
-### Convert to JPG
+### Convert SVG to PDF
 
-Converts SVG template binary input to JPG binary output.
+Convert SVG binary input to PDF binary output.
 
-### Convert to PNG
+### Convert SVG to JPG
 
-Converts SVG template binary input to PNG binary output.
+Convert SVG binary input to JPG binary output.
 
-## Parameters
+### Convert SVG to PNG
 
-### Common Parameters
+Convert SVG binary input to PNG binary output.
 
-- Template Binary Property: binary property that contains the input SVG template (default: `data`).
-- Output Binary Property: output binary property name (default: `data`).
-- Output File Name: output base filename (extension is added automatically).
+## Parameters (Summary)
 
-### Insert Text Target Row
+Common parameters:
 
-- Element
-- Target Element ID
-- Content
+- Resource and Operation.
+- Template Binary Property (default: `data`, not used for Convert String to SVG).
+- Options:
+  - Destination Output Field (default: `data`).
+  - File Name (base name, extension added automatically).
 
-### Insert Image Target Row
+Insert Text rows:
 
-- Element
-- Target Element ID
-- Content (image binary property)
-- Resize Mode (default: `contain`)
-- Preserve Aspect Ratio (default: `true`, shown only when Resize Mode is `cover`; `contain` always preserves ratio)
-- Overflow Handling (default: `hide`, shown after Preserve Aspect Ratio and available for all resize modes)
+- Target Element ID.
+- Content.
 
-Notes:
+Insert Image rows:
 
-- In `contain` and `cover` modes, the node always applies resizing behavior needed for those modes, including upscaling smaller images.
-- Overflow Handling applies to all resize modes and clips the inserted image to the target shape bounds when set to `hide`, including in `contain` mode.
+- Target Element ID.
+- Insert Image Content (binary object/property).
+- Resize Mode.
+- Preserve Aspect Ratio.
+- Overflow Handling.
 
 ## Input and Output
 
-- Insert Text / Insert Image
-  - Input: SVG binary template
-  - Output: modified SVG binary
+Insert Text and Insert Image:
 
-- Convert to PDF / JPG / PNG
-  - Input: SVG binary template
-  - Output: converted binary file
+- Input: SVG template binary.
+- Output: modified SVG binary.
 
-## Error Handling
+Convert String to SVG:
 
-The node raises descriptive errors for:
+- Input: SVG string.
+- Output: SVG binary.
 
-- Missing target element ID in SVG
-- Incompatible target element type for the selected operation
-- Unsupported image format for insertion
-- Invalid SVG template structure
-- Conversion failures
+Convert SVG to PDF/JPG/PNG:
 
-## Credentials
+- Input: SVG template binary.
+- Output: converted binary file.
 
-No credentials are required.
+## Quick Usage Notes
 
-## Compatibility
+- Keep SVG template data in a binary property (usually `data`) from an upstream node.
+- For multi-target edits, add multiple rows in the target collection.
+- Processing is fail-fast per item: an invalid target row raises an error for that item.
 
-- Built with n8n Node API v1.
-- Designed for modern n8n versions that support community nodes and binary data workflows.
+## Troubleshooting
 
-## Usage Notes
+For common issues and fixes (missing IDs, invalid element types, binary content shape, unsupported MIME types), see [TROUBLESHOOTING.md](./TROUBLESHOOTING.md).
 
-- Keep your SVG template in a binary property (typically `data`) from an upstream node.
-- For multiple insertions, add multiple Target Elements rows.
-- For fail-fast behavior, the node stops processing the current item on the first invalid insertion row.
+## Contributing and Releasing
+
+- Contributor setup and local development: [CONTRIBUTING.md](./CONTRIBUTING.md)
+- Release/versioning workflow: [RELEASING.md](./RELEASING.md)
+
+`CHANGELOG.md` is managed by release automation. Do not edit it manually.
 
 ## Resources
 
-- n8n community nodes docs: https://docs.n8n.io/integrations/#community-nodes
-- n8n node creation docs: https://docs.n8n.io/integrations/creating-nodes/overview/
+- n8n community nodes: https://docs.n8n.io/integrations/#community-nodes
+- n8n node creation overview: https://docs.n8n.io/integrations/creating-nodes/overview/
 
-## Version History
+## License
 
-See CHANGELOG.md for release notes.
+MIT. See [LICENSE](./LICENSE).
